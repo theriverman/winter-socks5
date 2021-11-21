@@ -1,12 +1,18 @@
-# Introduction
-N/A
+go-socks5-cli [![Makefile CD](https://github.com/theriverman/go-socks5-cli/actions/workflows/makefile.yml/badge.svg?branch=master)](https://github.com/theriverman/go-socks5-cli/actions/workflows/makefile.yml)
+[![GoDoc](https://godoc.org/github.com/theriverman/go-socks5-cli?status.svg)](https://pkg.go.dev/github.com/theriverman/go-socks5-cli?tab=doc "Docs @ pkg.go.dev")
+=========
+
+This **go-socks5-cli** application is a CLI wrapper around `theriverman/go-socks5` (forked from `armon/go-socks5`). The **go-socks5-cli** application uses the `socks5` package from `go-socks5` which implements a [SOCKS5 server](http://en.wikipedia.org/wiki/SOCKS).
+
+SOCKS (Secure Sockets) is used to route traffic between a client and a server through an intermediate proxy layer. This can be used to bypass firewalls or NATs.
 
 # Usage
 ```bash
-$ ./dist/socks5-cli.exe server
+$ socks5-cli.exe server
 # or
-$ ./dist/socks5-cli.exe server --address 0.0.0.0 --port 1080
+$ socks5-cli.exe server --address 0.0.0.0 --port 1080
 ```
+**Note:** The name of your binary may differ from the example.
 
 # Building with GNU make
 **Note:** Make a new git tag before building a new release version!
