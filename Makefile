@@ -30,7 +30,7 @@ clean:
 	rm -rf ./versioninfo.json
 	rm -rf ./resource.syso
 
-compile-all: check 
+compile-all: install-dev-dependencies clean generate-syso 
 	@echo "Compiling for every OS and Platform"
 	GOOS=darwin GOARCH=amd64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-darwin-amd64
 	GOOS=darwin GOARCH=arm64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-darwin-arm64
