@@ -20,6 +20,8 @@ build:
 	go generate
 	go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)$(BINARY_SUFFIX)
 
+check: clean build
+
 clean:
 	rm -rf ./dist
 

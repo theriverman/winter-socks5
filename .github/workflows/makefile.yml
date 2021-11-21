@@ -1,4 +1,4 @@
-name: Makefile CI
+name: Makefile CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - 'feature/*'
 
     tags:
-      - v**
+      - "v*.*.*"
 
 jobs:
   build:
