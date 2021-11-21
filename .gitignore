@@ -4,6 +4,8 @@
 *.dll
 *.so
 *.dylib
+socks5-cli-darwin*
+socks5-cli-linux*
 
 # Test binary, built with `go test -c`
 *.test
