@@ -28,7 +28,7 @@ install-dev-dependencies:
 clean:
 	rm -rf ./dist/*
 	rm -rf ./versioninfo.json
-	rm -rf ./resource.syso
+	rm -rf ./resource_*.syso
 
 compile-all: install-dev-dependencies clean generate-syso
 	@echo "Compiling for every OS and Platform"

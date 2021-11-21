@@ -20,5 +20,5 @@ socks5-cli-linux*
 # vendor/
 
 # Version untils
-resource.syso
+resource_*.syso
 versioninfo.json
