@@ -25,11 +25,10 @@ jobs:
       with:
         go-version: 1.17
 
-#     - name: Run check
-#       run: make check
-
-#     - name: Run distcheck
-#       run: make distcheck
+    - name: Set up Python 3.8  # for generating versioninfo.json
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
 
     - name: Compile for all supported targets
       run: make compile-all

@@ -15,3 +15,7 @@ socks5-cli-linux*
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Version untils
+resource.syso
+versioninfo.json
