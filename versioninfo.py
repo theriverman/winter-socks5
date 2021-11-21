@@ -14,12 +14,12 @@ if __name__ == '__main__':
     version_str = sys.argv[1]
     version_str = version_str.lstrip("v")
     print("Received Semantic Version:", version_str)
-    ver = semver.VersionInfo.parse(version_str)
-    print("ver.major ->", ver.major)
-    print("ver.minor ->", ver.minor)
-    print("ver.patch ->", ver.patch)
-    print("ver.build ->", ver.build)
-    print("ver.prerelease ->", ver.prerelease)
+    try:
+        ver = semver.VersionInfo.parse(version_str)
+    except ValueError as e:
+        print("ERROR! -", e)
+        print("WARNING! - Falling back to a generated develop release version")
+        ver = semver.VersionInfo.parse(f"0.0.0-{version_str}+{int(now.timestamp())}")
 
     version_info = {
         "FixedFileInfo": {
@@ -27,13 +27,13 @@ if __name__ == '__main__':
                 "Major": ver.major,
                 "Minor": ver.minor,
                 "Patch": ver.patch or 0,
-                "Build": ver.build or 0
+                "Build": int(ver.build) or 0
             },
             "ProductVersion": {
                 "Major": ver.major,
                 "Minor": ver.minor,
                 "Patch": ver.patch or 0,
-                "Build": ver.build or 0
+                "Build": int(ver.build) or 0
             },
             "FileFlagsMask": "3f",
             "FileFlags ": "00",

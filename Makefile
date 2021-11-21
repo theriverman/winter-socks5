@@ -16,18 +16,22 @@ LATEST_GIT_COMMIT := $(shell git log -n 1 --pretty=format:"%H")
 BINARY_NAME := socks5-cli
 GO_LD_FLAGS := -ldflags "-X 'main.app_built_date=$(CURRENT_TIME)' -X 'main.app_build_type=$(BUILD_TYPE)' -X 'main.app_sem_version=$(LATEST_GIT_TAG)' -X 'main.git_commit=$(LATEST_GIT_COMMIT)'"
 
-build:
-	go generate
+build: generate-syso
 	go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)$(BINARY_SUFFIX)
 
-check: clean build
+check: install-dev-dependencies clean generate-syso build
+
+install-dev-dependencies:
+	go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
+	pip install semver
 
 clean:
-	rm -rf ./dist
+	rm -rf ./dist/*
+	rm -rf ./versioninfo.json
+	rm -rf ./resource.syso
 
-compile-all:
-	echo "Compiling for every OS and Platform"
-	go generate
+compile-all: check 
+	@echo "Compiling for every OS and Platform"
 	GOOS=darwin GOARCH=amd64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-darwin-amd64
 	GOOS=darwin GOARCH=arm64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-darwin-arm64
 	GOOS=linux GOARCH=386 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-linux-386
@@ -36,6 +40,11 @@ compile-all:
 	GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-linux-arm64
 	GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-windows-386.exe
 	GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-windows-amd64.exe
+
+generate-syso:
+	@echo "Version: $(LATEST_GIT_COMMIT)"
+	python versioninfo.py $(LATEST_GIT_COMMIT)
+	go generate
 
 run:
 	go run main.go
