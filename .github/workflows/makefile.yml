@@ -1,0 +1,56 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+    
+#    - name: configure
+#      run: ./configure
+      
+#     - name: Install dependencies
+#       run: make
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+#     - name: Run check
+#       run: make check
+      
+#     - name: Run distcheck
+#       run: make distcheck
+
+    - name: Compile for all supported targets
+      run: make compile-all
+
+    - name: GH Release
+      uses: softprops/action-gh-release@v0.1.14
+
+    - name: GH Release Artefacts
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          ./dist/socks5-cli-darwin-amd64
+          ./dist/socks5-cli-darwin-arm64
+          ./dist/socks5-cli-linux-386
+          ./dist/socks5-cli-linux-amd64
+          ./dist/socks5-cli-linux-arm
+          ./dist/socks5-cli-linux-arm64
+          ./dist/socks5-cli-windows-386.exe
+          ./dist/socks5-cli-windows-amd64.exe
