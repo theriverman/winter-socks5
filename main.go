@@ -44,11 +44,11 @@ func main() {
 					fmt.Println("SOCKS5 listening on:", listen_addr)
 					server, err := socks5.New(conf)
 					if err != nil {
-						panic(err)
+						return err
 					}
 					// Create SOCKS5 proxy on localhost port 8000
 					if err := server.ListenAndServe("tcp", listen_addr); err != nil {
-						panic(err)
+						return err
 					}
 					return nil
 				},
