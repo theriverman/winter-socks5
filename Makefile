@@ -42,8 +42,8 @@ compile-all: check
 	GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) -o dist/$(BINARY_NAME)-windows-amd64.exe
 
 generate-syso:
-	@echo "Version: $(LATEST_GIT_COMMIT)"
-	python versioninfo.py $(LATEST_GIT_COMMIT)
+	@echo "Version: $(LATEST_GIT_TAG)"
+	python versioninfo.py $(LATEST_GIT_TAG)
 	go generate
 
 run:

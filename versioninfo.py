@@ -27,13 +27,13 @@ if __name__ == '__main__':
                 "Major": ver.major,
                 "Minor": ver.minor,
                 "Patch": ver.patch or 0,
-                "Build": int(ver.build) or 0
+                "Build": int(ver.build or 0)
             },
             "ProductVersion": {
                 "Major": ver.major,
                 "Minor": ver.minor,
                 "Patch": ver.patch or 0,
-                "Build": int(ver.build) or 0
+                "Build": int(ver.build or 0)
             },
             "FileFlagsMask": "3f",
             "FileFlags ": "00",
@@ -47,9 +47,9 @@ if __name__ == '__main__':
             "FileDescription": "go-socks5-cli",
             "FileVersion": str(ver),
             "InternalName": "gos5cli",
-            "LegalCopyright": f"github.com/theriverman/go-socks5-cli - All Rights Reserved. 2021 - {now.year}",
-            "LegalTrademarks": "github.com/theriverman/go-socks5-cli",
-            "OriginalFilename": "go-socks5-cli.exe",
+            "LegalCopyright": f"github.com/theriverman - All Rights Reserved. 2021 - {now.year}",
+            "LegalTrademarks": "MIT License",
+            "OriginalFilename": "socks5-cli.exe",
             "PrivateBuild": str(ver),
             "ProductName": "Go SOCKS5 CLI",
             "ProductVersion": str(ver),
