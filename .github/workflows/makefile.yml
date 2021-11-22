@@ -2,10 +2,6 @@ name: Makefile CD
 
 on:
   push:
-    branches-ignore:
-      - 'develop'
-      - 'feature/*'
-
     tags:
       - "v*.*.*"
 
