@@ -6,6 +6,8 @@ This **go-socks5-cli** application is a CLI wrapper around `theriverman/go-socks
 
 SOCKS (Secure Sockets) is used to route traffic between a client and a server through an intermediate proxy layer. This can be used to bypass firewalls or NATs.
 
+See [Releases](https://github.com/theriverman/go-socks5-cli/releases) for pre-compiled binaries (Linux, macOS, Windows).
+
 # Usage
 ```bash
 $ socks5-cli.exe server
