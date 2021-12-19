@@ -49,7 +49,7 @@ build-armon-linux:
 	@GOOS=linux GOARCH=arm go build $(GO_LD_FLAGS) $(BACKEND_armon) --tags armon -o dist/$(BINARY_NAME).armon-linux-arm
 	@GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) $(BACKEND_armon) --tags armon -o dist/$(BINARY_NAME).armon-linux-arm64
 
-build-armon-windows:
+build-armon-windows: install-dev-dependencies
 	@python versioninfo.py $(LATEST_GIT_TAG)
 	@GOOS=windows go generate
 	@GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) $(BACKEND_armon) --tags armon -o dist/$(BINARY_NAME).armon-windows-386.exe
@@ -70,13 +70,13 @@ build-txthinking-linux:
 	@GOOS=linux GOARCH=arm go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking-linux-arm
 	@GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking-linux-arm64
 
-build-txthinking-windows:
+build-txthinking-windows: install-dev-dependencies
 	@python versioninfo.py $(LATEST_GIT_TAG)
 	@GOOS=windows go generate
 	@GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking-windows-386.exe
 	@GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking-windows-amd64.exe
 
-check: install-dev-dependencies clean build
+check: install-dev-dependencies clean
 
 clean:
 	rm -rf ./dist/*
@@ -86,3 +86,5 @@ clean:
 install-dev-dependencies:
 	go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
 	pip install semver
+
+compile-all: clean build-armon-darwin build-armon-linux build-armon-windows build-txthinking-darwin build-txthinking-linux build-txthinking-windows
