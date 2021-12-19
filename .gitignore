@@ -7,8 +7,8 @@
 *.dll
 *.so
 *.dylib
-socks5-cli-darwin*
-socks5-cli-linux*
+socks5-cli.armon*
+socks5-cli.txthinking*
 
 # Test binary, built with `go test -c`
 *.test

@@ -34,11 +34,19 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
-          ./dist/socks5-cli-darwin-amd64
-          ./dist/socks5-cli-darwin-arm64
-          ./dist/socks5-cli-linux-386
-          ./dist/socks5-cli-linux-amd64
-          ./dist/socks5-cli-linux-arm
-          ./dist/socks5-cli-linux-arm64
-          ./dist/socks5-cli-windows-386.exe
-          ./dist/socks5-cli-windows-amd64.exe
+          ./dist/socks5-cli.armon-darwin-amd64
+          ./dist/socks5-cli.armon-darwin-arm64
+          ./dist/socks5-cli.armon-linux-386
+          ./dist/socks5-cli.armon-linux-amd64
+          ./dist/socks5-cli.armon-linux-arm
+          ./dist/socks5-cli.armon-linux-arm64
+          ./dist/socks5-cli.armon-windows-386.exe
+          ./dist/socks5-cli.armon-windows-amd64.exe
+          ./dist/socks5-cli.txthinking-darwin-amd64
+          ./dist/socks5-cli.txthinking-darwin-arm64
+          ./dist/socks5-cli.txthinking-linux-386
+          ./dist/socks5-cli.txthinking-linux-amd64
+          ./dist/socks5-cli.txthinking-linux-arm
+          ./dist/socks5-cli.txthinking-linux-arm64
+          ./dist/socks5-cli.txthinking-windows-386.exe
+          ./dist/socks5-cli.txthinking-windows-amd64.exe

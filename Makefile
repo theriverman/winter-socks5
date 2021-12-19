@@ -39,7 +39,6 @@ build-armon:
 	@go build $(GO_LD_FLAGS) $(BACKEND_armon) --tags armon -o dist/$(BINARY_NAME).armon$(BINARY_SUFFIX)
 
 build-armon-darwin:
-	@go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon$(BINARY_SUFFIX)
 	@GOOS=darwin GOARCH=amd64 go build $(GO_LD_FLAGS) $(BACKEND_armon) --tags armon -o dist/$(BINARY_NAME).armon-darwin-amd64
 	@GOOS=darwin GOARCH=arm64 go build $(GO_LD_FLAGS) $(BACKEND_armon) --tags armon -o dist/$(BINARY_NAME).armon-darwin-arm64
 
@@ -60,7 +59,6 @@ build-txthinking:
 	@go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking$(BINARY_SUFFIX)
 
 build-txthinking-darwin:
-	@go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking$(BINARY_SUFFIX)
 	@GOOS=darwin GOARCH=amd64 go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking-darwin-amd64
 	@GOOS=darwin GOARCH=arm64 go build $(GO_LD_FLAGS) $(BACKEND_txthinking) --tags txthinking -o dist/$(BINARY_NAME).txthinking-darwin-arm64
 
