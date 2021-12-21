@@ -14,9 +14,8 @@ import (
 var username, password string
 var tcpTimeout, udpTimeout int
 
-var proxyBackendUsage string = fmt.Sprintf("%s | A tiny CLI wrapper around github.com/txthinking/socks5", app_title)
 var proxyBackend string = "github.com/txthinking/socks5"
-
+var proxyBackendUsage string = fmt.Sprintf("%s | A tiny CLI wrapper around github.com/txthinking/socks5", app_title)
 var proxyBackendCommands []*cli.Command = []*cli.Command{
 	{
 		Name:  "server",

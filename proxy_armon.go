@@ -11,9 +11,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var proxyBackendUsage string = fmt.Sprintf("%s | A tiny CLI wrapper around github.com/theriverman/go-socks5 (forked from github.com/armon/go-socks5)", app_title)
 var proxyBackend string = "github.com/armon/go-socks5"
-
+var proxyBackendUsage string = fmt.Sprintf("%s | A tiny CLI wrapper around github.com/theriverman/go-socks5 (forked from github.com/armon/go-socks5)", app_title)
 var proxyBackendCommands []*cli.Command = []*cli.Command{
 	{
 		Name:  "server",
