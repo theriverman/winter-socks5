@@ -8,6 +8,7 @@ LATEST_GIT_COMMIT := $(shell git log -n 1 --pretty=format:"%H")
 # GLOBALS
 BINARY_NAME := wintersocks5
 GO_LD_FLAGS := -ldflags "-X 'main.app_built_date=$(CURRENT_TIME)' -X 'main.app_build_type=$(BUILD_TYPE)' -X 'main.app_sem_version=$(LATEST_GIT_TAG)' -X 'main.git_commit=$(LATEST_GIT_COMMIT)'"
+COPYRIGHT_TEXT := github.com/theriverman - All Rights Reserved 2021 - $(shell date '+%Y')
 
 # monkey-patch for Linux => Windows cross-compilation
 GO_BIN_DIR := $(shell go env GOPATH)/bin
@@ -16,7 +17,6 @@ export PATH := $(GO_BIN_DIR):$(PATH)
 # OS-specific stuffs
 ifeq ($(OS),Windows_NT)
 	BINARY_SUFFIX := .exe
-	COPYRIGHT_TEXT := github.com/theriverman - All Rights Reserved 2021 - $(shell date '+%Y')
 else
 	BINARY_SUFFIX :=
 endif
@@ -50,7 +50,6 @@ build-armon-linux:
 	@GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-linux-arm64
 
 build-armon-windows: generate-win-versioninfo
-	# @GOOS=windows go generate
 	@GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-windows-386.exe
 	@GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-windows-amd64.exe
 
@@ -69,7 +68,6 @@ build-txthinking-linux:
 	@GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-linux-arm64
 
 build-txthinking-windows: generate-win-versioninfo
-	# @GOOS=windows go generate
 	@GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-windows-386.exe
 	@GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-windows-amd64.exe
 
@@ -81,6 +79,6 @@ clean:
 
 generate-win-versioninfo:
 	go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
-	goversioninfo -file-version "$(LATEST_GIT_TAG).0" -product-version "$(LATEST_GIT_TAG)" -copyright "$(COPYRIGHT_TEXT)" -private-build "$(LATEST_GIT_TAG)" 
+	goversioninfo -platform-specific=true -file-version "$(LATEST_GIT_TAG).0" -product-version "$(LATEST_GIT_TAG)" -copyright "$(COPYRIGHT_TEXT)" -private-build "$(LATEST_GIT_TAG)" 
 
 compile-all: clean build-armon-darwin build-armon-linux build-armon-windows build-txthinking-darwin build-txthinking-linux build-txthinking-windows
