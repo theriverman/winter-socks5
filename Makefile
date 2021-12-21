@@ -13,7 +13,7 @@ LATEST_GIT_TAG := $(shell git describe --tags --abbrev=0)
 LATEST_GIT_COMMIT := $(shell git log -n 1 --pretty=format:"%H")
 
 # GLOBALS
-BINARY_NAME := socks5-cli
+BINARY_NAME := wintersocks5
 GO_LD_FLAGS := -ldflags "-X 'main.app_built_date=$(CURRENT_TIME)' -X 'main.app_build_type=$(BUILD_TYPE)' -X 'main.app_sem_version=$(LATEST_GIT_TAG)' -X 'main.git_commit=$(LATEST_GIT_COMMIT)'"
 
 # monkey-patch for Linux => Windows cross-compilation

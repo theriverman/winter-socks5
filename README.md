@@ -1,45 +1,43 @@
-go-socks5-cli [![Makefile CD](https://github.com/theriverman/go-socks5-cli/actions/workflows/makefile.yml/badge.svg?branch=master)](https://github.com/theriverman/go-socks5-cli/actions/workflows/makefile.yml)
-[![GoDoc](https://godoc.org/github.com/theriverman/go-socks5-cli?status.svg)](https://pkg.go.dev/github.com/theriverman/go-socks5-cli?tab=doc "Docs @ pkg.go.dev")
+winter-socks5 [![Makefile CD](https://github.com/theriverman/winter-socks5/actions/workflows/makefile.yml/badge.svg?branch=master)](https://github.com/theriverman/winter-socks5/actions/workflows/makefile.yml)
+[![GoDoc](https://godoc.org/github.com/theriverman/winter-socks5?status.svg)](https://pkg.go.dev/github.com/theriverman/winter-socks5?tab=doc "Docs @ pkg.go.dev")
 =========
 
-This **go-socks5-cli** application is a CLI wrapper around `theriverman/go-socks5` (forked from `armon/go-socks5`). The **go-socks5-cli** application uses the `socks5` package from `go-socks5` which implements a [SOCKS5 server](http://en.wikipedia.org/wiki/SOCKS).
-
+**WinterSOCKS5** is a CLI frontend for the following SOCKS5 Go implementations:
+  * [theriverman/go-socks5](https://github.com/theriverman/go-socks5) (forked from [armon/go-socks5](https://github.com/armon/go-socks5)).
+  * [txthinking/socks5](https://github.com/txthinking/socks5)
+  
 SOCKS (Secure Sockets) is used to route traffic between a client and a server through an intermediate proxy layer. This can be used to bypass firewalls or NATs.
 
-See [Releases](https://github.com/theriverman/go-socks5-cli/releases) for pre-compiled binaries (Linux, macOS, Windows).
+See [Releases](https://github.com/theriverman/winter-socks5/releases) for pre-compiled binaries (Linux, macOS, Windows). A separate binary is provided for each backend.
 
 # Usage
-```bash
-$ socks5-cli.exe server
-# or
-$ socks5-cli.exe server --address 0.0.0.0 --port 1080
+See help for instructions:
+```cmd
+.\socks5-cli.armon-windows-amd64.exe --help
+.\socks5-cli.txthinking-windows-amd64.exe --help
 ```
+
 **Note:** The name of your binary may differ from the example.
 
-# Building with GNU make
+# Building
+The following prerequisites must be met to build **WinterSOCKS5**:
+  * go 1.17 or higher
+  * Python 3.6 or higher
+  * pip (Python pkg-management system)
+
+## Building with GNU make
 **Note:** Make a new git tag before building a new release version!
 
+See the available build targets by executing the following command:
 ```bash
-make build
+make info
 ```
 
-# Building Manually
-**Note:** Make a new git tag before building a new release version!
-
-Store some pre-build information:
+The most common build targets are the following:
 ```bash
-export BINARY_NAME="socks5-cli"
-export BINARY_SUFFIX=".exe"
-CURRENT_TIME=$(date '+%c')
-LATEST_GIT_TAG=$(git describe --tags --abbrev=0)
-LATEST_GIT_COMMIT=$(git log -n 1 --pretty=format:"%H")
-export CURRENT_TIME
-export LATEST_GIT_TAG
-export LATEST_GIT_COMMIT
+make build-armon-windows
+make build-txthinking-windows
 ```
 
-Build the binary by executing the following commands:
-```bash
-go generate
-go build -ldflags "-X 'main.app_built_date=$CURRENT_TIME' -X 'main.app_build_type=released' -X 'main.app_sem_version=$LATEST_GIT_TAG' -X 'main.git_commit=$LATEST_GIT_COMMIT'" -o dist/$BINARY_NAME$BINARY_SUFFIX
-```
+## Building Manually
+See the contents of [Makefile](./Makefile) for reference.
