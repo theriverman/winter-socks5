@@ -1,10 +1,3 @@
-# BINARY SUFFIX (for proper Windows support)
-ifeq ($(OS),Windows_NT)
-	BINARY_SUFFIX := .exe
-else
-	BINARY_SUFFIX :=
-endif
-
 # BUILD-TIME VARIABLES
 OS_NAME := $(shell uname -s | tr A-Z a-z)
 BUILD_TYPE := released
@@ -19,6 +12,14 @@ GO_LD_FLAGS := -ldflags "-X 'main.app_built_date=$(CURRENT_TIME)' -X 'main.app_b
 # monkey-patch for Linux => Windows cross-compilation
 GO_BIN_DIR := $(shell go env GOPATH)/bin
 export PATH := $(GO_BIN_DIR):$(PATH)
+
+# OS-specific stuffs
+ifeq ($(OS),Windows_NT)
+	BINARY_SUFFIX := .exe
+	COPYRIGHT_TEXT := github.com/theriverman - All Rights Reserved 2021 - $(shell date '+%Y')
+else
+	BINARY_SUFFIX :=
+endif
 
 info:
 	@echo "Choose from the following targets:"
@@ -48,9 +49,8 @@ build-armon-linux:
 	@GOOS=linux GOARCH=arm go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-linux-arm
 	@GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-linux-arm64
 
-build-armon-windows: install-dev-dependencies
-	@python versioninfo.py $(LATEST_GIT_TAG)
-	@GOOS=windows go generate
+build-armon-windows: generate-win-versioninfo
+	# @GOOS=windows go generate
 	@GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-windows-386.exe
 	@GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) --tags armon -o dist/$(BINARY_NAME).armon-windows-amd64.exe
 
@@ -68,21 +68,19 @@ build-txthinking-linux:
 	@GOOS=linux GOARCH=arm go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-linux-arm
 	@GOOS=linux GOARCH=arm64 go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-linux-arm64
 
-build-txthinking-windows: install-dev-dependencies
-	@python versioninfo.py $(LATEST_GIT_TAG)
-	@GOOS=windows go generate
+build-txthinking-windows: generate-win-versioninfo
+	# @GOOS=windows go generate
 	@GOOS=windows GOARCH=386 go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-windows-386.exe
 	@GOOS=windows GOARCH=amd64 go build $(GO_LD_FLAGS) --tags txthinking -o dist/$(BINARY_NAME).txthinking-windows-amd64.exe
 
-check: install-dev-dependencies clean
+check: generate-win-versioninfo clean
 
 clean:
 	rm -rf ./dist/*
-	rm -rf ./versioninfo.json
 	rm -rf ./resource_*.syso
 
-install-dev-dependencies:
+generate-win-versioninfo:
 	go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
-	pip install semver
+	goversioninfo -file-version "$(LATEST_GIT_TAG).0" -product-version "$(LATEST_GIT_TAG)" -copyright "$(COPYRIGHT_TEXT)" -private-build "$(LATEST_GIT_TAG)" 
 
 compile-all: clean build-armon-darwin build-armon-linux build-armon-windows build-txthinking-darwin build-txthinking-linux build-txthinking-windows
