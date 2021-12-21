@@ -31,6 +31,8 @@ info:
 	@echo "  * build-txthinking-darwin"
 	@echo "  * build-txthinking-linux"
 	@echo "  * build-txthinking-windows"
+	@echo "    -----------------------------------------------"
+	@echo "  * compile-all"
 
 build-armon:
 	@echo "Building with backend: github.com/armon/go-socks5 for $(shell go env GOOS)/$(shell go env GOARCH)"
